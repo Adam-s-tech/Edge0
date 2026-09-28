@@ -16,13 +16,15 @@ from __future__ import annotations
 import pathlib
 import re
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+# Repo root (this file lives at <root>/python/tests/): the hygiene guards
+# scan the whole multi-platform repo, not just the Python subproject.
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 
 _EXCLUDE_DIRS = {".git", ".venv", ".pytest_cache", "__pycache__", ".agents",
                  ".codex"}
 _EXCLUDE_PARTS = {"egg-info"}
 _EXCLUDE_SUFFIXES = {".pyc", ".so", ".dylib", ".bin", ".safetensors", ".npz",
-                     ".png", ".jpg", ".jpeg", ".gif", ".ico"}
+                     ".png", ".jpg", ".jpeg", ".gif", ".ico", ".pdf"}
 
 # NOTE: patterns are assembled with + so this file never contains the
 # literal string it is looking for.
@@ -85,7 +87,7 @@ def test_no_hardcoded_local_paths():
 
 def test_mlx_imports_stay_inside_the_backend():
     bad = []
-    for path in (ROOT / "src" / "edge0").rglob("*.py"):
+    for path in (ROOT / "python" / "src" / "edge0").rglob("*.py"):
         rel = path.relative_to(ROOT)
         text = path.read_text(encoding="utf-8")
         if _MLX_IMPORT.search(text) and "backends/mlx" not in rel.as_posix():

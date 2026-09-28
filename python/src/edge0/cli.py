@@ -211,9 +211,9 @@ def cmd_serve(args) -> int:
 def cmd_convert(args) -> int:
     import runpy
     sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve()
-                           .parents[1] / "scripts"))
+                           .parents[2] / "scripts"))
     runpy.run_path(
-        str(__import__("pathlib").Path(__file__).resolve().parents[1]
+        str(__import__("pathlib").Path(__file__).resolve().parents[2]
             / "scripts" / "convert_adapters_legacy.py"),
         run_name="__main__",
     )

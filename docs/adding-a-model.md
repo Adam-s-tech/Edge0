@@ -42,7 +42,7 @@ The subclass only needs to implement the class method `_defaults(model_dir) -> C
 
 Key points:
 
-- The repository root ships `scripts/convert_adapters_legacy.py`, which one-shot converts the training npz exports into safetensors artifacts under `artifacts/`; `ModelConfig.artifact(name)` (`models/base.py:28–30`) returns the absolute paths of those artifacts, and the adapter uses them to fill in the LoRA / prerouter weight paths.
+- The Python project root (`python/`) ships `scripts/convert_adapters_legacy.py`, which one-shot converts the training npz exports into safetensors artifacts under `artifacts/`; `ModelConfig.artifact(name)` (`models/base.py:28–30`) returns the absolute paths of those artifacts, and the adapter uses them to fill in the LoRA / prerouter weight paths.
 - LoRA overrides go through `resolve_lora` (`models/base.py:88–95`): a bare model name resolves to that tier's artifacts, `"model_dir"` means "keep the training weights in place", and an empty string disables it.
 
 ## Step 3: `build_model` / `build_engine`

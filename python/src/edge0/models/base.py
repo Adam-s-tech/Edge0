@@ -19,7 +19,7 @@ from edge0.moe.spec import MoESpec
 from edge0.prerouter.spec import PrerouterSpec
 from edge0.streaming.options import LayerOptions
 
-# Repository-root artifacts (gitignored; produced once by
+# Project-root artifacts (gitignored; produced once by
 # scripts/convert_adapters_legacy.py from the training npz exports, then
 # the source npz are discarded).
 ARTIFACTS_DIR = Path(__file__).resolve().parents[3] / "artifacts"

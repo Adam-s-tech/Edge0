@@ -18,4 +18,4 @@ artifacts/
 
 # Bench / runtime logs
 *.log
-scripts/alignment_results.json
+python/scripts/alignment_results.json
