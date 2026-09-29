@@ -265,8 +265,8 @@ runs this exact path).
   location automatically:
   - the model directory (recommended): side by side with the base, e.g.
     `lora_edge0_35b.safetensors` + `prerouter_edge0_35b.safetensors`;
-  - `artifacts/` (gitignored): convert once from training-side npz
-    exports via `edge0 convert-adapters --npz-dir ...`.
+  - `artifacts/` at the Python project root (gitignored): an optional
+    fallback cache for adapter safetensors not co-located with the model.
 - The published model repos bundle both the base checkpoint and the
   current default adapter release, so `scripts/fetch_models.py` produces
   a ready-to-run model directory. Check each model's doc page for its

@@ -257,8 +257,8 @@ engine.close()   # 释放 mmap / 专家缓存
 - **适配器**（LoRA + prerouter，safetensors）放两处任一，自动解析：
   - **模型目录内**（推荐）：与基模同目录，如
     `lora_edge0_35b.safetensors` + `prerouter_edge0_35b.safetensors`；
-  - `artifacts/`（gitignored）：`edge0 convert-adapters` 从训练侧 npz
-    一次性转换。
+  - `artifacts/`（Python 项目根，gitignored）：可选的回退缓存，放置未
+    与模型同目录的适配器 safetensors。
 - 发布的模型仓库同时包含基模与当前默认适配器版本，
   `scripts/fetch_models.py` 下载后即为可运行的模型目录。适配器来源
   （训练数据、owner 层分布）见各模型文档页。

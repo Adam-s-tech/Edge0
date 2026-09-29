@@ -19,16 +19,16 @@ from edge0.moe.spec import MoESpec
 from edge0.prerouter.spec import PrerouterSpec
 from edge0.streaming.options import LayerOptions
 
-# Project-root artifacts (gitignored; produced once by
-# scripts/convert_adapters_legacy.py from the training npz exports, then
-# the source npz are discarded).
+# Project-root artifacts (gitignored): an optional local cache of adapter
+# safetensors. Adapters normally ship inside the model directory; this is
+# only the fallback location artifact() returns when they are not there.
 ARTIFACTS_DIR = Path(__file__).resolve().parents[3] / "artifacts"
 
 
 def artifact(name: str, model_dir: str | None = None) -> str:
     """Path of one adapter file: the model's own directory first
     (model and its adapters side by side in one
-    directory), falling back to ``artifacts/`` (conversion cache)."""
+    directory), falling back to ``artifacts/`` (optional local cache)."""
     if model_dir:
         cand = Path(model_dir) / name
         if cand.is_file():

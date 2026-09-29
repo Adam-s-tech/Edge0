@@ -6,7 +6,6 @@ Commands:
     edge0 serve       start the HTTP server (one model, queued generations)
     edge0 chat        one-shot prompt -> answer on the terminal
     edge0 models      list registered tiers and their default profiles
-    edge0 convert-adapters   one-shot legacy npz -> safetensors migration
 """
 
 from __future__ import annotations
@@ -208,25 +207,6 @@ def cmd_serve(args) -> int:
     return 0
 
 
-def cmd_convert(args) -> int:
-    from pathlib import Path
-
-    scripts_dir = Path(__file__).resolve().parents[2] / "scripts"
-    if str(scripts_dir) not in sys.path:
-        sys.path.insert(0, str(scripts_dir))
-    # Delegate to the legacy converter's own main(argv) with a clean argv,
-    # so the subcommand name never leaks into its argparse (runpy would
-    # re-parse sys.argv and choke on "convert-adapters").
-    from convert_adapters_legacy import main as _convert_main
-
-    argv: list[str] = []
-    if getattr(args, "force", False):
-        argv.append("--force")
-    if getattr(args, "npz_dir", None):
-        argv += ["--npz-dir", args.npz_dir]
-    return _convert_main(argv)
-
-
 def _add_engine_flags(p) -> None:
     """Engine-construction flags shared by demo / chat / serve."""
     p.add_argument("--no-prerouter", action="store_true")
@@ -294,15 +274,6 @@ def _build_parser() -> argparse.ArgumentParser:
                    help="use the Flask transport (needs flask installed)")
     _add_engine_flags(p)
     p.set_defaults(fn=cmd_serve)
-
-    p = sub.add_parser("convert-adapters",
-                       help="one-shot legacy npz -> safetensors migration")
-    p.add_argument("--force", action="store_true",
-                   help="reconvert even if the artifact exists")
-    p.add_argument("--npz-dir", default=None,
-                   help="directory holding the legacy npz exports "
-                        "(default: $EDGE0_NPZ_DIR)")
-    p.set_defaults(fn=cmd_convert)
 
     return ap
 

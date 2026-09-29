@@ -16,9 +16,7 @@ Safetensors key naming (framework contract)::
 
 where ``<target>`` is the module path inside the loaded model (e.g.
 ``model.layers.3.attention.q_proj`` or
-``language_model.model.layers.0.linear_attn.in_proj_qkv``).  The legacy
-npz files used the same A/B naming, so conversion is a pure format
-migration (see ``scripts/convert_adapters_legacy.py``).
+``language_model.model.layers.0.linear_attn.in_proj_qkv``).
 """
 
 from __future__ import annotations
