@@ -20,14 +20,14 @@ English | [中文](README_zh.md)
 
 </div>
 
-## 📰 News
+## News
 
-- **[2026-09-30]** We released the **edge0 inference engines for three platforms — iOS, macOS and Android** — so users get the best inference experience across architectures and platforms. The source is open-sourced in this repo ([`ios/`](ios/) · [`macos/`](macos/) · [`android/`](android/)) — see each directory's README for details. The **unified inference framework** follows by the **end of October 2026**; see the [Roadmap](#-roadmap).
+- **[2026-09-30]** We released the **edge0 inference engines for three platforms — iOS, macOS and Android** — so users get the best inference experience across architectures and platforms. The source is open-sourced in this repo ([`ios/`](ios/) · [`macos/`](macos/) · [`android/`](android/)) — see each directory's README for details. The **unified inference framework** follows by the **end of October 2026**; see the [Roadmap](#roadmap).
 - **[2026-09-20]** `--prefill-ondemand` lands for `edge0 demo / chat / serve` ([#112](https://github.com/Edge0-AI/Edge0/pull/112)).
 - **[2026-09-16]** Our technical report is on arXiv: [The Other Half of the Memory Wall: Serving 35B MoEs from SSD with Trained Routing Prediction](https://arxiv.org/abs/2609.18063).
 - **[2026-09-08]** Initial open-source release of **edge0**, together with both model tiers — [`Edge0-35B-A3B-preview`](https://huggingface.co/Edge0/Edge0-35B-A3B-preview) and [`Edge0-8B-A1B-preview`](https://huggingface.co/Edge0/Edge0-8B-A1B-preview) — on Hugging Face and ModelScope.
 
-## 🤔 About
+## About
 
 **edge0** is an open-source streaming MoE inference framework. It
 generalizes the production-proven recipe — **SSD expert offload +
@@ -90,7 +90,7 @@ are co-located with each checkpoint and load automatically, so
   zero changes to core code. The iOS / macOS / Android engines ship
   platform-native stacks today — bringing every platform under one
   access layer is exactly what the unified inference framework
-  (see [Roadmap](#-roadmap)) will deliver;
+  (see [Roadmap](#roadmap)) will deliver;
 - **Adapters as safetensors**: LoRA and prerouter weights are
   `.safetensors` files with provenance metadata (source, version, owner
   layers), resolved from the model directory or `artifacts/`;
@@ -138,7 +138,7 @@ python examples/bench.py edge0-35b    # via $EDGE0_35B_MODEL
 python examples/bench.py edge0-8b     # via $EDGE0_8B_MODEL
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Python (macOS · Apple Silicon)
 
@@ -226,7 +226,7 @@ edge0 serve edge0-35b
 ```bash
 curl http://127.0.0.1:8000/v1/chat/completions \
   -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"user","content":"Hello!"}],"max_tokens":32}'
+  -d '{"model":"edge0-35b","messages":[{"role":"user","content":"Hello!"}],"max_tokens":32}'
 
 # 5) One-shot chat (pass --max-new to cap length; add --show-thinking to
 #    print the model's reasoning block too)
@@ -294,9 +294,9 @@ in each directory's README:
 
 The **unified inference framework** — one access layer, runtime
 auto-adapting to iOS / macOS / Android / Windows / Python — arrives by
-the **end of October 2026**; see the [Roadmap](#-roadmap).
+the **end of October 2026**; see the [Roadmap](#roadmap).
 
-## 🗺️ Roadmap
+## Roadmap
 
 - **[End of Oct 2026] edge0 unified inference framework** — we will
   open-source a unified inference framework: **one unified access
@@ -310,7 +310,7 @@ the **end of October 2026**; see the [Roadmap](#-roadmap).
   `python/src/edge0/backends/cuda/`, core code needs zero changes.
 - More model tiers and adapter releases on the existing pipeline.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome — issues, PRs, benchmark reports and model
 ports all count.
@@ -341,7 +341,7 @@ with the unified framework code.
 Workflow: fork → feature branch → PR against `main`. Please keep the
 hygiene suite green and add tests for new behavior.
 
-## 📖 Citation
+## Citation
 
 If you find edge0 useful, please cite our technical report:
 
@@ -357,16 +357,14 @@ If you find edge0 useful, please cite our technical report:
 }
 ```
 
-## 📧 Contact Us
+## Contact Us
 
 <!-- TODO(edge0 team): fill in the official contact channels before publish. -->
 
 Community and support channels are coming soon — this section will list
 the official ways to reach us:
 
-- **Email**: _to be added_
-- **Discord**: _to be added_
-- **WeChat group**: _to be added_
+- **Email**: samuel@edge0.ai
 
 For bugs and feature requests, please use
 [GitHub Issues](https://github.com/Edge0-AI/Edge0/issues).

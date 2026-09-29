@@ -11,7 +11,7 @@ Recover-LoRA, and prerouter routing prediction.
 The next milestone is the **unified inference framework** — one access
 layer, runtime auto-adapting to the hardware platform (iOS / macOS /
 Android / Windows / Python) — targeted for the **end of October 2026**;
-see the [roadmap](../README.md#-roadmap).
+see the [roadmap](../README.md#roadmap).
 
 See the [repository README](../README.md) for the multi-platform picture.
 

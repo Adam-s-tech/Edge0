@@ -20,13 +20,13 @@
 
 </div>
 
-## 📰 新闻
+## 新闻
 
 - **【2026-09-30】** 我们发布了**三端推理引擎**，适配 iOS、macOS、Android
   平台，让用户在不同架构、不同平台上都有最佳的推理体验。三端源码已
   开源至本仓库（[`ios/`](ios/) · [`macos/`](macos/) ·
   [`android/`](android/)），更多细节见各目录 README；**统一推理框架**
-  将于 **2026 年 10 月底**发布，详见[路线图](#-路线图)。
+  将于 **2026 年 10 月底**发布，详见[路线图](#路线图)。
 - **【2026-09-20】** `edge0 demo / chat / serve` 新增 `--prefill-ondemand`
   （[#112](https://github.com/Edge0-AI/Edge0/pull/112)）。
 - **【2026-09-16】** 技术报告上线 arXiv：[The Other Half of the Memory
@@ -37,7 +37,7 @@
   与 [`Edge0-8B-A1B-preview`](https://huggingface.co/Edge0/Edge0-8B-A1B-preview)
   同步登陆 Hugging Face 与 ModelScope。
 
-## 🤔 关于 edge0
+## 关于 edge0
 
 **edge0** 是一个开源的流式 MoE 推理框架：把「SSD 专家 offload +
 Recover-LoRA + prerouter 路由预判」抽象成可扩展的通用框架，让大型稀疏
@@ -91,7 +91,7 @@ MoE 模型跑在消费级硬件上——峰值内存由**激活**专家集而非
   `nn` 门面），新增后端实现同一门面即可平级接入（`backends/cuda/`
   预留插槽），核心代码零改动。iOS / macOS / Android 引擎目前是各自的
   平台原生技术栈——把所有平台收进统一接入层，正是统一推理框架
-  （见[路线图](#-路线图)）要交付的内容；
+  （见[路线图](#路线图)）要交付的内容；
 - **适配器统一为 safetensors**：LoRA 与 prerouter 权重均为带元数据
   （来源、版本、owner 层）的 `.safetensors`，放模型目录或 `artifacts/`
   均可自动解析；
@@ -135,7 +135,7 @@ python examples/bench.py edge0-35b    # 经 $EDGE0_35B_MODEL
 python examples/bench.py edge0-8b     # 经 $EDGE0_8B_MODEL
 ```
 
-## 🚀 快速开始
+## 快速开始
 
 ### Python（macOS · Apple Silicon）
 
@@ -222,7 +222,7 @@ edge0 serve edge0-35b
 ```bash
 curl http://127.0.0.1:8000/v1/chat/completions \
   -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"user","content":"Hello!"}],"max_tokens":32}'
+  -d '{"model":"edge0-35b","messages":[{"role":"user","content":"Hello!"}],"max_tokens":32}'
 
 # 5) 单轮对话（--max-new 限制生成长度；加 --show-thinking 会一并打印思考块）
 edge0 chat edge0-35b --prompt "用一句话解释流式推理。"
@@ -285,9 +285,9 @@ engine.close()   # 释放 mmap / 专家缓存
   [`android/README.md`](android/README.md)
 
 **统一推理框架**（接入层统一，runtime 自动适配 iOS / macOS / Android /
-Windows / Python）将于 **2026 年 10 月底**发布，见[路线图](#-路线图)。
+Windows / Python）将于 **2026 年 10 月底**发布，见[路线图](#路线图)。
 
-## 🗺️ 路线图
+## 路线图
 
 - **【2026 年 10 月底】edge0 统一推理框架开源** —— 发布统一推理框架：
   **接入层统一**为一套 API（chat / serve / 端侧共用），**runtime 自动
@@ -298,7 +298,7 @@ Windows / Python）将于 **2026 年 10 月底**发布，见[路线图](#-路线
   `python/src/edge0/backends/cuda/`，核心代码零改动。
 - 更多模型档位与适配器版本在现有管线上持续发布。
 
-## 🤝 贡献
+## 贡献
 
 欢迎各种形式的贡献——issue、PR、性能实测报告、新模型接入都算。
 
@@ -327,7 +327,7 @@ examples/demo.py              # 最小 API walkthrough（edge0 demo 的等价代
 流程：fork → 功能分支 → 向 `main` 发 PR。请保持卫生检查通过，并为新
 行为补测试。
 
-## 📖 引用
+## 引用
 
 如果 edge0 对你有帮助，请引用我们的技术报告：
 
@@ -343,15 +343,13 @@ examples/demo.py              # 最小 API walkthrough（edge0 demo 的等价代
 }
 ```
 
-## 📧 联系我们
+## 联系我们
 
-<!-- TODO(edge0 团队)：发布前填写官方联系渠道。 -->
+<!-- TODO(edge0 团队)：如需补充更多渠道（Discord / 微信群等），在此添加。 -->
 
 社区与支持渠道即将上线，本节将列出联系我们的官方方式：
 
-- **邮箱**：_待补充_
-- **Discord**：_待补充_
-- **微信群**：_待补充_
+- **邮箱**：samuel@edge0.ai
 
 Bug 与功能建议请直接提
 [GitHub Issues](https://github.com/Edge0-AI/Edge0/issues)。
