@@ -40,6 +40,18 @@ def main() -> int:
                          "already run that path)")
     args = ap.parse_args()
 
+    # ``--model <tier>`` resolves through the tier env var (same contract
+    # as ``edge0 demo``); ``--model-dir`` always wins.
+    if not args.model_dir and args.model:
+        import os
+
+        from edge0.cli import TIER_ENV
+        env = TIER_ENV.get(args.model)
+        args.model_dir = os.environ.get(env, "") if env else ""
+        if not args.model_dir:
+            ap.error(f"--model {args.model} needs ${env or '?'} set to the "
+                     f"checkpoint directory (or pass --model-dir)")
+
     kw = ({"prerouter": None} if args.no_prerouter
           else demo_kwargs(args.model_dir, args.model))
     engine = AutoEngine.from_pretrained(args.model_dir, name=args.model, **kw)

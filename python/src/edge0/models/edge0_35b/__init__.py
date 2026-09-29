@@ -10,7 +10,8 @@ checkpoint):
 * trained prerouter: 33 heads (owners 6..38), start_layer 7,
   hidden 512, fp16, consumed directly by the patched MoE block at
   decode (patch_call=True, cross-token staged decode, K=4).
-* serving: port 8085; acceptance ≈13 tok/s, peak active ≈3.3 GB.
+* serving: port 8000 (the shared CLI default); acceptance ≈13 tok/s,
+  peak active ≈3.3 GB.
 """
 
 from __future__ import annotations
@@ -64,7 +65,6 @@ class Qwen35Config(ModelConfig):
             hot_window=4,
             intra_staging=False,
             prefetch_history=True,
-            port=8085,
             target_tok_s=13.0,
             peak_active_mem_mb=3400.0,
         )

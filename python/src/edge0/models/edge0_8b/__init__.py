@@ -11,7 +11,8 @@ Family facts (production profile, verified against the reference checkpoint):
   (explicit owners 1..22), start_layer 1, hidden 512, fp16,
   feature_topk "executed", consumed inside ``BailingSparseMoE``
   from ``prerouter_cache`` logits (patch_call=False).
-* serving: port 8083; acceptance ≈33 tok/s, peak active ≈1.4 GB.
+* serving: port 8000 (the shared CLI default); acceptance ≈33 tok/s,
+  peak active ≈1.4 GB.
 """
 
 from __future__ import annotations
@@ -72,7 +73,6 @@ class Ling8BConfig(ModelConfig):
             hot_window=1,
             intra_staging=False,
             prefetch_history=True,
-            port=8083,
             target_tok_s=33.0,
             peak_active_mem_mb=1400.0,
         )

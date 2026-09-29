@@ -13,6 +13,11 @@ dist/
 # Trained adapter artifacts (never committed; see README)
 artifacts/
 
+# Downloaded model checkpoints (never committed; see README quick start).
+# Anchored so the source package python/src/edge0/models/ is not matched.
+/models/
+/python/models/
+
 # macOS
 .DS_Store
 

@@ -65,7 +65,7 @@ def test_qwen35_profile():
         name="edge0-35b", history_slots=True).history_slots is True
     assert cfg.gen.temperature == 0.7
     assert 248046 in cfg.gen.eos_ids
-    assert cfg.port == 8085
+    assert cfg.port == 8000  # unified serving port (CLI default)
 
 
 def test_ling8b_profile():
@@ -82,7 +82,7 @@ def test_ling8b_profile():
     assert cfg.prerouter.patch_call is False
     assert cfg.gen.repetition_penalty == 1.1
     assert 156895 in cfg.gen.eos_ids
-    assert cfg.port == 8083
+    assert cfg.port == 8000  # unified serving port (CLI default)
 
 
 def test_override_and_reject():
