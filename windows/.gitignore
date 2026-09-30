@@ -4,6 +4,6 @@ app/src-tauri/target/
 app/src-tauri/gen/
 .edge0/
 wt/
-models/
+/models/
 benchmarks/
 *.log
