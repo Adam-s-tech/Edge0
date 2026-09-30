@@ -1,5 +1,7 @@
 # edge0-android — Release Build Guide
 
+English | [中文](README_zh.md) | [日本語](README_ja.md) | [Español](README_es.md) | [Français](README_fr.md)
+
 This document is for **developers building or evaluating the Android app from source**. It covers: quick start (engine → app → models → test), measured performance on the reference device, and the technical choices behind the stack.
 
 edge0 is published as a **monorepo** — [`Edge0-AI/edge0`](https://github.com/Edge0-AI/edge0) — whose top level holds the shared engine supply (`vendor.llama.pin` + the scripts-materialized `vendor/llama.cpp`, `patches/llama.cpp/` band-sets) and the platform subprojects (`windows/` = the desktop companion, `android/` = this app). Inference runs on pinned upstream llama.cpp, patched as a replayable patch set, fully on-CPU with ARM-NEON kernels and a demand-paged expert pool.

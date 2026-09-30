@@ -16,7 +16,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-Edge0--AI%2FEdge0-black?style=for-the-badge&logo=github)](https://github.com/Edge0-AI/Edge0)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue?style=for-the-badge)](LICENSE)
 
-English | [中文](README_zh.md)
+English | [中文](README_zh.md) | [日本語](README_ja.md) | [Español](README_es.md) | [Français](README_fr.md)
 
 </div>
 
@@ -55,11 +55,11 @@ One repo, one recipe, per-platform runtimes:
 
 | Platform | Directory | Stack | Status |
 |---|---|---|---|
-| **Python** (macOS · Apple Silicon) | [`python/`](python/) | Python + MLX | ✅ Available now |
-| **macOS** app & CLI | [`macos/`](macos/) | Rust | ✅ Open-sourced (2026-09-30) |
-| **iOS** app | [`ios/`](ios/) | Swift + MLX Swift | ✅ Open-sourced (2026-09-30) |
-| **Android** app & engine | [`android/`](android/) | Kotlin + native engine | ✅ Open-sourced (2026-09-30) |
-| **Windows** app & engine | [`windows/`](windows/) | C++ + Vulkan | ✅ Open-sourced (2026-09-30) |
+| **Python** (macOS · Apple Silicon) | [`python/`](python/README.md) | Python + MLX | ✅ Available now |
+| **macOS** app & CLI | [`macos/`](macos/README.md) | Rust | ✅ Open-sourced (2026-09-30) |
+| **iOS** app | [`ios/`](ios/README.md) | Swift + MLX Swift | ✅ Open-sourced (2026-09-30) |
+| **Android** app & engine | [`android/`](android/README.md) | Kotlin + native engine | ✅ Open-sourced (2026-09-30) |
+| **Windows** app & engine | [`windows/`](windows/README.md) | C++ + Vulkan | ✅ Open-sourced (2026-09-30) |
 
 ### Models
 
@@ -360,9 +360,9 @@ examples/demo.py              # minimal API walkthrough
 CI runs unit tests (macOS + MLX) and a repo-hygiene suite (no hardcoded
 paths, backend-boundary and secret checks) on every PR.
 
-**Platform runtimes** (macOS / iOS / Android): the directories are
-reserved placeholders for now; contribution guides will land together
-with the unified framework code.
+**Platform runtimes** (macOS / iOS / Android / Windows): each platform
+directory ships its own build guide and tests — see the directory
+READMEs.
 
 Workflow: fork → feature branch → PR against `main`. Please keep the
 hygiene suite green and add tests for new behavior.

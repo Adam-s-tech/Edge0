@@ -16,7 +16,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-Edge0--AI%2FEdge0-black?style=for-the-badge&logo=github)](https://github.com/Edge0-AI/Edge0)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue?style=for-the-badge)](LICENSE)
 
-[English](README.md) | 中文
+[English](README.md) | 中文 | [日本語](README_ja.md) | [Español](README_es.md) | [Français](README_fr.md)
 
 </div>
 
@@ -60,11 +60,11 @@ MoE 模型跑在消费级硬件上——峰值内存由**激活**专家集而非
 
 | 平台 | 目录 | 技术栈 | 状态 |
 |---|---|---|---|
-| **Python**（macOS · Apple Silicon） | [`python/`](python/) | Python + MLX | ✅ 现已可用 |
-| **macOS** 桌面 App 与 CLI | [`macos/`](macos/) | Rust | ✅ 已开源（2026-09-30） |
-| **iOS** App | [`ios/`](ios/) | Swift + MLX Swift | ✅ 已开源（2026-09-30） |
-| **Android** App 与引擎 | [`android/`](android/) | Kotlin + 原生引擎 | ✅ 已开源（2026-09-30） |
-| **Windows** App 与引擎 | [`windows/`](windows/) | C++ + Vulkan | ✅ 已开源（2026-09-30） |
+| **Python**（macOS · Apple Silicon） | [`python/`](python/README_zh.md) | Python + MLX | ✅ 现已可用 |
+| **macOS** 桌面 App 与 CLI | [`macos/`](macos/README_zh.md) | Rust | ✅ 已开源（2026-09-30） |
+| **iOS** App | [`ios/`](ios/README_zh.md) | Swift + MLX Swift | ✅ 已开源（2026-09-30） |
+| **Android** App 与引擎 | [`android/`](android/README_zh.md) | Kotlin + 原生引擎 | ✅ 已开源（2026-09-30） |
+| **Windows** App 与引擎 | [`windows/`](windows/README_zh.md) | C++ + Vulkan | ✅ 已开源（2026-09-30） |
 
 ### 模型
 
@@ -278,13 +278,13 @@ engine.close()   # 释放 mmap / 专家缓存
 四端推理引擎已开源在本仓库，更多细节见各目录 README：
 
 - **macOS**：本地 CLI / daemon / 桌面 App（Rust）—— 详见
-  [`macos/README.md`](macos/README.md)
+  [`macos/README_zh.md`](macos/README_zh.md)
 - **iOS**：iPhone 端侧 App（Swift + MLX Swift）—— 详见
-  [`ios/README.md`](ios/README.md)
+  [`ios/README_zh.md`](ios/README_zh.md)
 - **Android**：端侧 App + 原生引擎（Kotlin）—— 详见
-  [`android/README.md`](android/README.md)
+  [`android/README_zh.md`](android/README_zh.md)
 - **Windows**：桌面 App + 原生引擎（C++ + Vulkan）—— 详见
-  [`windows/README.md`](windows/README.md)
+  [`windows/README_zh.md`](windows/README_zh.md)
 
 **统一推理框架**（接入层统一，runtime 自动适配 iOS / macOS / Android /
 Windows / Python）将于 **2026 Q4** 发布，见[路线图](#路线图)。
@@ -343,8 +343,8 @@ examples/demo.py              # 最小 API walkthrough（edge0 demo 的等价代
 每个 PR 都会跑 CI：单元测试（macOS + MLX）与仓库卫生检查（无硬编码
 路径、后端边界、无密钥）。
 
-**平台 runtime**（macOS / iOS / Android）：目前是占位目录，贡献指南将
-随统一框架代码一并发布。
+**平台 runtime**（macOS / iOS / Android / Windows）：各平台目录自带
+构建指南与测试——见各目录 README。
 
 流程：fork → 功能分支 → 向 `main` 发 PR。请保持卫生检查通过，并为新
 行为补测试。

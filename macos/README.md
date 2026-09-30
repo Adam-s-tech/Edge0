@@ -1,5 +1,7 @@
 # edge0
 
+English | [中文](README_zh.md) | [日本語](README_ja.md) | [Español](README_es.md) | [Français](README_fr.md)
+
 On-device inference for Apple Silicon. The app talks to a local OpenAI-compatible server that runs Edge0 MoE models (8B and 35B) with streaming expert weights, SSD offload, and Metal.
 
 Requires **macOS 14+** on **Apple Silicon (M3 or later)**. All commands below are from this directory's root. MLX v0.30.6 is already under `third_party/mlx`.

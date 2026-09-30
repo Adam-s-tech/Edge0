@@ -1,5 +1,7 @@
 # Edge0Phone
 
+English | [中文](README_zh.md) | [日本語](README_ja.md) | [Español](README_es.md) | [Français](README_fr.md)
+
 On-device chat for iPhone. The app can run Edge0 8B, Edge0 35B, or both, and only the model you select is loaded. Model weights are not in this folder.
 
 ## Quick Start

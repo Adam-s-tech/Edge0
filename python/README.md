@@ -1,5 +1,7 @@
 # edge0 — Python framework
 
+English | [中文](README_zh.md) | [日本語](README_ja.md) | [Español](README_es.md) | [Français](README_fr.md)
+
 This document is for **developers installing and running the edge0 Python
 framework from source**. It covers: quick start (install → models → run),
 measured performance and quality, and the design behind the stack.
