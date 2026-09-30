@@ -15,13 +15,15 @@ from __future__ import annotations
 
 import pathlib
 import re
+import subprocess
 
 # Repo root (this file lives at <root>/python/tests/): the hygiene guards
 # scan the whole multi-platform repo, not just the Python subproject.
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 
 _EXCLUDE_DIRS = {".git", ".venv", ".pytest_cache", "__pycache__", ".agents",
-                 ".codex"}
+                 ".codex", "vendor", "wt", ".edge0", "models", "node_modules",
+                 ".gradle", "build-dl", "target", "dist", "build"}
 _EXCLUDE_PARTS = {"egg-info"}
 _EXCLUDE_SUFFIXES = {".pyc", ".so", ".dylib", ".bin", ".safetensors", ".npz",
                      ".png", ".jpg", ".jpeg", ".gif", ".ico", ".pdf"}
@@ -53,7 +55,35 @@ _SECRET_PATTERNS = [
 ]
 
 
+def _git_ls_files() -> list[str] | None:
+    """Repo-relative paths of the files that are (or would be) committed:
+    tracked files plus untracked-but-not-gitignored ones.  Materialized
+    build areas (``vendor/``, ``wt/``, ``models/``, ``.venv/``) are
+    gitignored, so this naturally excludes them — the hygiene guards check
+    *shipped* code, not downloaded third-party dependencies.  Returns None
+    if git is unavailable, so the caller can fall back to a directory walk.
+    """
+    try:
+        out = subprocess.run(
+            ["git", "ls-files", "--cached", "--others", "--exclude-standard",
+             "-z"],
+            cwd=ROOT, capture_output=True, check=True,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return [p for p in out.decode("utf-8", "replace").split("\0") if p]
+
+
 def _iter_text_files():
+    shipped = _git_ls_files()
+    if shipped is not None:
+        for rel in shipped:
+            path = ROOT / rel
+            if path.suffix in _EXCLUDE_SUFFIXES or not path.is_file():
+                continue
+            yield path
+        return
+    # Fallback (no git): walk the tree, skipping vcs / build / vendor dirs.
     for path in ROOT.rglob("*"):
         rel = path.relative_to(ROOT)
         if any(part in _EXCLUDE_DIRS for part in rel.parts):

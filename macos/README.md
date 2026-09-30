@@ -95,9 +95,3 @@ edge0.app (Tauri 2 + React 19)
 - **Engine:** C++/Metal on mlx 0.30.6. Int4 streaming experts (mmap slices + LRU hot stack + SSD offload), prerouter prefetch, unmerged LoRA, KV prefix cache. NAX GEMM is off by default (`MLX_METAL_NO_NAX`) because mlx 0.30.6 is numerically wrong for edge0-8b on M5.
 
 `EDGE0_HOME` defaults to `~/.edge0`.
-
-## License
-
-Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
-
-Models: [Edge0-8B-A1B-preview](https://huggingface.co/Edge0/Edge0-8B-A1B-preview) and [Edge0-35B-A3B-preview](https://huggingface.co/Edge0/Edge0-35B-A3B-preview) (Apache-2.0). Engine math library: [mlx](https://github.com/ml-explore/mlx) (MIT). Upstream framework: [Edge0-AI/edge0](https://github.com/Edge0-AI/edge0).
