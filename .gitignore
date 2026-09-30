@@ -18,6 +18,13 @@ artifacts/
 /models/
 /python/models/
 
+# Platform build areas materialized by the engine/vendor scripts (never commit):
+# isolated patch-replay worktrees, the pinned llama.cpp checkout, and the
+# local engine-depot bootstrap fallback (see windows/scripts/vendor-build.ps1).
+/wt/
+/vendor/
+.edge0/
+
 # macOS
 .DS_Store
 
