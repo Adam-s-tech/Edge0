@@ -22,7 +22,7 @@ English | [中文](README_zh.md)
 
 ## News
 
-- **[2026-09-30]** We released the **edge0 inference engines for three platforms — iOS, macOS and Android** — so users get the best inference experience across architectures and platforms. The source is open-sourced in this repo ([`ios/`](ios/) · [`macos/`](macos/) · [`android/`](android/)) — see each directory's README for details. The **unified inference framework** follows by the **end of October 2026**; see the [Roadmap](#roadmap).
+- **[2026-09-30]** We released the **edge0 inference engines for four platforms — iOS, macOS, Android and Windows** — so users get the best inference experience across architectures and platforms. The source is open-sourced in this repo ([`ios/`](ios/) · [`macos/`](macos/) · [`android/`](android/) · [`windows/`](windows/)) — see each directory's README for details. The **unified inference framework** follows in **Q4 2026**; see the [Roadmap](#roadmap).
 - **[2026-09-20]** `--prefill-ondemand` lands for `edge0 demo / chat / serve` ([#112](https://github.com/Edge0-AI/Edge0/pull/112)).
 - **[2026-09-16]** Our technical report is on arXiv: [The Other Half of the Memory Wall: Serving 35B MoEs from SSD with Trained Routing Prediction](https://arxiv.org/abs/2609.18063).
 - **[2026-09-08]** Initial open-source release of **edge0**, together with both model tiers — [`Edge0-35B-A3B-preview`](https://huggingface.co/Edge0/Edge0-35B-A3B-preview) and [`Edge0-8B-A1B-preview`](https://huggingface.co/Edge0/Edge0-8B-A1B-preview) — on Hugging Face and ModelScope.
@@ -59,7 +59,7 @@ One repo, one recipe, per-platform runtimes:
 | **macOS** app & CLI | [`macos/`](macos/) | Rust | ✅ Open-sourced (2026-09-30) |
 | **iOS** app | [`ios/`](ios/) | Swift + MLX Swift | ✅ Open-sourced (2026-09-30) |
 | **Android** app & engine | [`android/`](android/) | Kotlin + native engine | ✅ Open-sourced (2026-09-30) |
-| **Windows** | — | — | 🗺️ On the roadmap |
+| **Windows** app & engine | [`windows/`](windows/) | C++ + Vulkan | ✅ Open-sourced (2026-09-30) |
 
 ### Models
 
@@ -283,35 +283,37 @@ runs this exact path).
 - [edge0-35b](docs/models/edge0-35b.md) / [edge0-8b](docs/models/edge0-8b.md)
 - Technical report: [The Other Half of the Memory Wall](https://arxiv.org/abs/2609.18063) ([PDF](paper/main.pdf))
 
-### macOS / iOS / Android
+### macOS / iOS / Android / Windows
 
-The three platform engines are open-sourced in this repo — more details
+The four platform engines are open-sourced in this repo — more details
 in each directory's README:
 
 - **macOS**: local CLI / daemon / desktop app (Rust) — see [`macos/README.md`](macos/README.md)
 - **iOS**: on-device iPhone app (Swift + MLX Swift) — see [`ios/README.md`](ios/README.md)
 - **Android**: on-device app + native engine (Kotlin) — see [`android/README.md`](android/README.md)
+- **Windows**: desktop app + native engine (C++ + Vulkan) — see [`windows/README.md`](windows/README.md)
 
 The **unified inference framework** — one access layer, runtime
-auto-adapting to iOS / macOS / Android / Windows / Python — arrives by
-the **end of October 2026**; see the [Roadmap](#roadmap).
+auto-adapting to iOS / macOS / Android / Windows / Python — arrives in
+**Q4 2026**; see the [Roadmap](#roadmap).
 
 ## Roadmap
 
+### Q4 2026
+
 **Platforms & systems**
 
-- **[End of Oct 2026] edge0 unified inference framework** — we will
+- **edge0 unified inference framework** — we will
   open-source a unified inference framework: **one unified access
   layer** (a single API across chat / serve / on-device use), with the
   **runtime automatically adapting to the hardware platform** — iOS,
-  macOS, Android, Windows and Python. It builds on the three platform
+  macOS, Android, Windows and Python. It builds on the platform
   engines already open-sourced in this repo (`ios/` · `macos/` ·
-  `android/`).
-- **Windows** platform support (via the unified framework).
+  `android/` · `windows/`).
 - **CUDA backend** for the Python framework — reserved slot at
   `python/src/edge0/backends/cuda/`, core code needs zero changes.
 
-**Models & algorithms — Q4 2026**
+**Models & algorithms**
 
 Q4 works two fronts: bringing a next-generation architecture into the
 framework, and turning latent reasoning into a real latency saving rather
@@ -382,8 +384,6 @@ If you find edge0 useful, please cite our technical report:
 ```
 
 ## Contact Us
-
-<!-- TODO(edge0 team): fill in the official contact channels before publish. -->
 
 Community and support channels are coming soon — this section will list
 the official ways to reach us:

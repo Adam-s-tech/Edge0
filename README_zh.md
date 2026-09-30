@@ -22,11 +22,11 @@
 
 ## 新闻
 
-- **【2026-09-30】** 我们发布了**三端推理引擎**，适配 iOS、macOS、Android
-  平台，让用户在不同架构、不同平台上都有最佳的推理体验。三端源码已
-  开源至本仓库（[`ios/`](ios/) · [`macos/`](macos/) ·
-  [`android/`](android/)），更多细节见各目录 README；**统一推理框架**
-  将于 **2026 年 10 月底**发布，详见[路线图](#路线图)。
+- **【2026-09-30】** 我们发布了**四端推理引擎**，适配 iOS、macOS、
+  Android、Windows 平台，让用户在不同架构、不同平台上都有最佳的推理
+  体验。四端源码已开源至本仓库（[`ios/`](ios/) · [`macos/`](macos/) ·
+  [`android/`](android/) · [`windows/`](windows/)），更多细节见各目录
+  README；**统一推理框架**将于 **2026 Q4** 发布，详见[路线图](#路线图)。
 - **【2026-09-20】** `edge0 demo / chat / serve` 新增 `--prefill-ondemand`
   （[#112](https://github.com/Edge0-AI/Edge0/pull/112)）。
 - **【2026-09-16】** 技术报告上线 arXiv：[The Other Half of the Memory
@@ -64,7 +64,7 @@ MoE 模型跑在消费级硬件上——峰值内存由**激活**专家集而非
 | **macOS** 桌面 App 与 CLI | [`macos/`](macos/) | Rust | ✅ 已开源（2026-09-30） |
 | **iOS** App | [`ios/`](ios/) | Swift + MLX Swift | ✅ 已开源（2026-09-30） |
 | **Android** App 与引擎 | [`android/`](android/) | Kotlin + 原生引擎 | ✅ 已开源（2026-09-30） |
-| **Windows** | — | — | 🗺️ 路线图中 |
+| **Windows** App 与引擎 | [`windows/`](windows/) | C++ + Vulkan | ✅ 已开源（2026-09-30） |
 
 ### 模型
 
@@ -273,9 +273,9 @@ engine.close()   # 释放 mmap / 专家缓存
 - [edge0-35b](docs/models/edge0-35b.md) / [edge0-8b](docs/models/edge0-8b.md)
 - 技术报告：[The Other Half of the Memory Wall](https://arxiv.org/abs/2609.18063)（[PDF](paper/main.pdf)）
 
-### macOS / iOS / Android
+### macOS / iOS / Android / Windows
 
-三端推理引擎已开源在本仓库，更多细节见各目录 README：
+四端推理引擎已开源在本仓库，更多细节见各目录 README：
 
 - **macOS**：本地 CLI / daemon / 桌面 App（Rust）—— 详见
   [`macos/README.md`](macos/README.md)
@@ -283,23 +283,26 @@ engine.close()   # 释放 mmap / 专家缓存
   [`ios/README.md`](ios/README.md)
 - **Android**：端侧 App + 原生引擎（Kotlin）—— 详见
   [`android/README.md`](android/README.md)
+- **Windows**：桌面 App + 原生引擎（C++ + Vulkan）—— 详见
+  [`windows/README.md`](windows/README.md)
 
 **统一推理框架**（接入层统一，runtime 自动适配 iOS / macOS / Android /
-Windows / Python）将于 **2026 年 10 月底**发布，见[路线图](#路线图)。
+Windows / Python）将于 **2026 Q4** 发布，见[路线图](#路线图)。
 
 ## 路线图
 
+### 2026 Q4
+
 **平台与系统**
 
-- **【2026 年 10 月底】edge0 统一推理框架开源** —— 发布统一推理框架：
-  **接入层统一**为一套 API（chat / serve / 端侧共用），**runtime 自动
-  适配不同硬件平台**——iOS、macOS、Android、Windows、Python；在本仓库
-  已开源的三端引擎（`ios/` · `macos/` · `android/`）之上统一收编。
-- **Windows** 平台支持（经统一框架）。
+- **edge0 统一推理框架开源** —— 发布统一推理框架：**接入层统一**为一套
+  API（chat / serve / 端侧共用），**runtime 自动适配不同硬件平台**——
+  iOS、macOS、Android、Windows、Python；在本仓库已开源的平台引擎
+  （`ios/` · `macos/` · `android/` · `windows/`）之上统一收编。
 - **CUDA 后端**（Python 框架）—— 插槽已预留在
   `python/src/edge0/backends/cuda/`，核心代码零改动。
 
-**模型与算法 —— 2026 Q4**
+**模型与算法**
 
 Q4 推进两条主线：把下一代架构引入框架，以及把潜在推理（latent
 thinking）变成真正的延迟收益、而不只是算力节省。
@@ -363,8 +366,6 @@ examples/demo.py              # 最小 API walkthrough（edge0 demo 的等价代
 ```
 
 ## 联系我们
-
-<!-- TODO(edge0 团队)：如需补充更多渠道（Discord / 微信群等），在此添加。 -->
 
 社区与支持渠道即将上线，本节将列出联系我们的官方方式：
 
