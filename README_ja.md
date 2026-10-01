@@ -23,7 +23,6 @@
 ## ニュース
 
 - **[2026-09-30]** **4 つのプラットフォーム — iOS、macOS、Android、Windows — 向けの edge0 推論エンジン**をリリースしました。ユーザーはアーキテクチャとプラットフォームをまたいで最適な推論体験を得られます。ソースはこのリポジトリでオープンソース化されています([`ios/`](ios/) · [`macos/`](macos/) · [`android/`](android/) · [`windows/`](windows/))— 詳細は各ディレクトリの README を参照してください。**統合推論フレームワーク**は **2026 年 Q4** に控えています。[ロードマップ](#ロードマップ)を参照。
-- **[2026-09-20]** `edge0 demo / chat / serve` に `--prefill-ondemand` が登場([#112](https://github.com/Edge0-AI/Edge0/pull/112))。
 - **[2026-09-16]** 技術レポートが arXiv に掲載: [The Other Half of the Memory Wall: Serving 35B MoEs from SSD with Trained Routing Prediction](https://arxiv.org/abs/2609.18063)。
 - **[2026-09-08]** **edge0** の初オープンソースリリース。両モデルティア — [`Edge0-35B-A3B-preview`](https://huggingface.co/Edge0/Edge0-35B-A3B-preview) と [`Edge0-8B-A1B-preview`](https://huggingface.co/Edge0/Edge0-8B-A1B-preview) — を Hugging Face と ModelScope で同時公開。
 

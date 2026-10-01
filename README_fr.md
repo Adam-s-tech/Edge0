@@ -23,7 +23,6 @@
 ## Actualités
 
 - **[2026-09-30]** Nous avons publié les **moteurs d'inférence edge0 pour quatre plateformes — iOS, macOS, Android et Windows** — afin d'offrir aux utilisateurs la meilleure expérience d'inférence à travers les architectures et les plateformes. Le code source est publié en open source dans ce dépôt ([`ios/`](ios/) · [`macos/`](macos/) · [`android/`](android/) · [`windows/`](windows/)) — consultez le README de chaque répertoire pour plus de détails. Le **framework d'inférence unifié** suivra au **T4 2026** ; voir la [Feuille de route](#feuille-de-route).
-- **[2026-09-20]** `--prefill-ondemand` arrive pour `edge0 demo / chat / serve` ([#112](https://github.com/Edge0-AI/Edge0/pull/112)).
 - **[2026-09-16]** Notre rapport technique est sur arXiv : [The Other Half of the Memory Wall: Serving 35B MoEs from SSD with Trained Routing Prediction](https://arxiv.org/abs/2609.18063).
 - **[2026-09-08]** Première publication open source d'**edge0**, avec les deux gammes de modèles — [`Edge0-35B-A3B-preview`](https://huggingface.co/Edge0/Edge0-35B-A3B-preview) et [`Edge0-8B-A1B-preview`](https://huggingface.co/Edge0/Edge0-8B-A1B-preview) — sur Hugging Face et ModelScope.
 
