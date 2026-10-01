@@ -27,8 +27,6 @@
   体验。四端源码已开源至本仓库（[`ios/`](ios/) · [`macos/`](macos/) ·
   [`android/`](android/) · [`windows/`](windows/)），更多细节见各目录
   README；**统一推理框架**将于 **2026 Q4** 发布，详见[路线图](#路线图)。
-- **【2026-09-20】** `edge0 demo / chat / serve` 新增 `--prefill-ondemand`
-  （[#112](https://github.com/Edge0-AI/Edge0/pull/112)）。
 - **【2026-09-16】** 技术报告上线 arXiv：[The Other Half of the Memory
   Wall: Serving 35B MoEs from SSD with Trained Routing
   Prediction](https://arxiv.org/abs/2609.18063)。

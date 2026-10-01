@@ -23,7 +23,6 @@
 ## Novedades
 
 - **[2026-09-30]** Lanzamos los **motores de inferencia de edge0 para cuatro plataformas — iOS, macOS, Android y Windows** — de modo que los usuarios obtienen la mejor experiencia de inferencia en todas las arquitecturas y plataformas. El código fuente se ha liberado en este repositorio ([`ios/`](ios/) · [`macos/`](macos/) · [`android/`](android/) · [`windows/`](windows/)) — consulta el README de cada directorio para más detalles. El **framework de inferencia unificado** llegará en **Q4 2026**; consulta la [Hoja de ruta](#hoja-de-ruta).
-- **[2026-09-20]** `--prefill-ondemand` llega a `edge0 demo / chat / serve` ([#112](https://github.com/Edge0-AI/Edge0/pull/112)).
 - **[2026-09-16]** Nuestro informe técnico está en arXiv: [The Other Half of the Memory Wall: Serving 35B MoEs from SSD with Trained Routing Prediction](https://arxiv.org/abs/2609.18063).
 - **[2026-09-08]** Primera versión de código abierto de **edge0**, junto con los dos niveles de modelos — [`Edge0-35B-A3B-preview`](https://huggingface.co/Edge0/Edge0-35B-A3B-preview) y [`Edge0-8B-A1B-preview`](https://huggingface.co/Edge0/Edge0-8B-A1B-preview) — en Hugging Face y ModelScope.
 
