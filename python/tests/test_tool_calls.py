@@ -16,6 +16,8 @@ from __future__ import annotations
 
 import json
 
+import pytest
+
 from edge0.server.tool_calls import parse_ling_tool_calls, parse_qwen_tool_calls
 
 # Captured from edge0-8b/chat_template.jinja rendered with
@@ -108,6 +110,45 @@ def test_qwen_malformed_block_kept_as_content():
     content, calls = parse_qwen_tool_calls(text)
     assert calls == []
     assert "<tool_call>" in content
+
+
+@pytest.mark.parametrize("parser,body", [
+    (parse_ling_tool_calls, "calculator<arg_key>x</arg_key>"),
+    (parse_ling_tool_calls, "calculator<arg_key></arg_key><arg_value>1</arg_value>"),
+    (parse_ling_tool_calls, "calculator<arg_key>x</arg_key><arg_value>1</arg_value>junk"),
+    (parse_qwen_tool_calls, "<function=calculator><parameter=x>broken</function>"),
+    (parse_qwen_tool_calls, "<function=calculator></function>junk"),
+    (parse_qwen_tool_calls, "<function=calculator><parameter=>\n1\n</parameter></function>"),
+])
+def test_incomplete_or_unconsumed_arguments_are_preserved(parser, body):
+    text = f"<tool_call>{body}</tool_call>"
+    content, calls = parser(text)
+    assert content == text
+    assert calls == []
+
+
+@pytest.mark.parametrize("parser,text", [
+    (parse_ling_tool_calls, "<tool_call>get_time</tool_call>"),
+    (parse_qwen_tool_calls, "<tool_call><function=get_time></function></tool_call>"),
+])
+def test_zero_argument_tool_call(parser, text):
+    content, calls = parser(text)
+    assert content is None
+    assert json.loads(calls[0]["function"]["arguments"]) == {}
+
+
+def test_qwen_function_allows_surrounding_whitespace():
+    text = "<tool_call>\n  <function=get_time></function>\n  </tool_call>"
+    content, calls = parse_qwen_tool_calls(text)
+    assert content is None
+    assert calls[0]["function"]["name"] == "get_time"
+
+
+def test_malformed_blocks_survive_between_valid_calls():
+    malformed = "<tool_call>calculator<arg_key>x</arg_key></tool_call>"
+    content, calls = parse_ling_tool_calls(LING_REAL_SPAN + malformed + LING_REAL_SPAN)
+    assert content == malformed
+    assert len(calls) == 2
 
 
 def test_ling_argument_coercion_numbers_and_json():

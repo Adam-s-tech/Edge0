@@ -42,6 +42,30 @@ class ChatRequest:
     raw: dict[str, Any] = field(default_factory=dict)
 
 
+def _template_tool_calls(calls) -> list[dict] | None:
+    if calls is None:
+        return None
+    if not isinstance(calls, list):
+        raise ValueError("tool_calls must be a list of function calls")
+    normalized = []
+    for call in calls:
+        if not isinstance(call, dict) or not isinstance(call.get("function"), dict):
+            raise ValueError("tool_calls entries must contain a function object")
+        function = call["function"]
+        arguments = function.get("arguments", {})
+        # OpenAI messages serialize arguments; checkpoint templates iterate them.
+        if isinstance(arguments, str):
+            try:
+                arguments = json.loads(arguments)
+            except ValueError as exc:
+                raise ValueError(
+                    "tool_calls function arguments must be a JSON object") from exc
+        if not isinstance(arguments, dict):
+            raise ValueError("tool_calls function arguments must be a JSON object")
+        normalized.append({**call, "function": {**function, "arguments": arguments}})
+    return normalized
+
+
 def parse_chat_request(payload: dict) -> ChatRequest:
     msgs = []
     for m in payload.get("messages", []):
@@ -53,7 +77,7 @@ def parse_chat_request(payload: dict) -> ChatRequest:
                 p.get("text", "") for p in content if isinstance(p, dict))
         msgs.append(ChatMessage(
             role=role, content=str(content),
-            tool_calls=m.get("tool_calls"),
+            tool_calls=_template_tool_calls(m.get("tool_calls")),
             tool_call_id=m.get("tool_call_id"),
             name=m.get("name"),
         ))

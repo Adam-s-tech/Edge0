@@ -6,7 +6,7 @@ against the real ``chat_template.jinja`` shipped with each checkpoint,
 not assumed):
 
 * **edge0-8b (Ling)** — ``<tool_call>{name}<arg_key>k</arg_key>
-  <arg_value>v</arg_value>...</arg_call>``, one ``arg_key``/``arg_value``
+  <arg_value>v</arg_value>...</tool_call>``, one ``arg_key``/``arg_value``
   pair per argument.
 * **edge0-35b (Qwen3.5)** — ``<tool_call>\\n<function={name}>\\n
   <parameter={key}>\\nvalue\\n</parameter>\\n...</function>\\n</tool_call>``.
@@ -77,6 +77,22 @@ def _split(text: str, parse_block) -> tuple[str | None, list[dict]]:
     return content, calls
 
 
+def _parse_arguments(text: str, pattern) -> dict | None:
+    args = {}
+    pos = 0
+    for match in pattern.finditer(text):
+        if text[pos:match.start()].strip():
+            return None
+        key = match.group(1).strip()
+        if not key:
+            return None
+        args[key] = _coerce(match.group(2))
+        pos = match.end()
+    if text[pos:].strip():
+        return None
+    return args
+
+
 def _parse_ling_block(body: str):
     name_match = re.match(r"^([^<]+)", body)
     if not name_match:
@@ -84,7 +100,9 @@ def _parse_ling_block(body: str):
     name = name_match.group(1).strip()
     if not name:
         return None
-    args = {k.strip(): _coerce(v) for k, v in _LING_ARG.findall(body)}
+    args = _parse_arguments(body[name_match.end():], _LING_ARG)
+    if args is None:
+        return None
     return name, args
 
 
@@ -97,14 +115,16 @@ def parse_ling_tool_calls(text: str) -> tuple[str | None, list[dict]]:
 
 
 def _parse_qwen_block(body: str):
-    fn_match = _QWEN_FUNCTION.match(body)
+    fn_match = _QWEN_FUNCTION.fullmatch(body)
     if not fn_match:
         return None
     name = fn_match.group(1).strip()
     if not name:
         return None
     params = fn_match.group(2)
-    args = {k.strip(): _coerce(v) for k, v in _QWEN_PARAM.findall(params)}
+    args = _parse_arguments(params, _QWEN_PARAM)
+    if args is None:
+        return None
     return name, args
 
 

@@ -28,9 +28,7 @@ except ImportError:  # pragma: no cover
 
 
 def _error(status: int, msg: str) -> tuple:
-    if _HAS_FLASK:
-        return jsonify({"error": {"message": msg, "type": "invalid_request"}}), status
-    return (json.dumps({"error": {"message": msg}}), status)
+    return {"error": {"message": msg, "type": "invalid_request"}}, status
 
 
 def _split_think(text: str, think: bool):
@@ -134,7 +132,9 @@ def _chat_stream(server: QueueServer, payload: dict):
                 content, tool_calls = _extract_tool_calls(
                     server, req, content)
                 if tool_calls:
-                    delta = {"content": content, "tool_calls": tool_calls}
+                    delta = {"content": content, "tool_calls": [
+                        {"index": i, **call} for i, call in enumerate(tool_calls)
+                    ]}
                     finish_reason = "tool_calls"
                 else:
                     delta = {"content": content}
@@ -165,6 +165,11 @@ def build_app_handlers(server: QueueServer):
     """Return a handler dispatch dict shared by both transports."""
 
     def handle_chat(payload: dict):
+        # Validate before sending streaming response headers.
+        try:
+            parse_chat_request(payload)
+        except ValueError as exc:
+            return _error(400, str(exc))
         if payload.get("stream"):
             if _HAS_FLASK:
                 return Response(
@@ -217,8 +222,9 @@ def create_app(server: QueueServer):
         out = handlers["POST /v1/chat/completions"](payload)
         if isinstance(out, Response):
             return out
-        if isinstance(out, tuple) and out and isinstance(out[0], Response):
-            return out
+        if isinstance(out, tuple):
+            body, status = out
+            return jsonify(body), status
         return jsonify(out)
 
     @app.post("/v1/completions")
@@ -226,7 +232,8 @@ def create_app(server: QueueServer):
         payload = request.get_json(force=True, silent=True) or {}
         out = handlers["POST /v1/completions"](payload)
         if isinstance(out, tuple):
-            return out
+            body, status = out
+            return jsonify(body), status
         return jsonify(out)
 
     return app
@@ -283,18 +290,20 @@ class _StdlibHandler(BaseHTTPRequestHandler):
             return
         length = int(self.headers.get("Content-Length", 0))
         payload = json.loads(self.rfile.read(length) or b"{}")
+        if path == "/v1/chat/completions":
+            try:
+                parse_chat_request(payload)
+            except ValueError as exc:
+                self._json(400, {"error": {"message": str(exc),
+                                          "type": "invalid_request"}})
+                return
         if path == "/v1/chat/completions" and payload.get("stream"):
             self._sse(_chat_stream(self.server_q, payload))
             return
         out = handlers[("POST " + path)](payload)
         if isinstance(out, tuple):
-            body, status, headers = out
-            self.send_response(status)
-            for k, v in headers.items():
-                self.send_header(k, v)
-            self.send_header("Content-Length", str(len(body)))
-            self.end_headers()
-            self.wfile.write(body)
+            body, status = out
+            self._json(status, body)
         else:
             self._json(200, out)
 
